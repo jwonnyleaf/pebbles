@@ -1,5 +1,11 @@
 import { User, AuthContextType } from '../types';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
 
 const defaultAuthContext = {
   user: null,
@@ -15,6 +21,27 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const response = await fetch('/api/verify-session', {
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isAuthenticated) {
+            setUser(data.user);
+            setIsAuthenticated(true);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to verify session:', error);
+      }
+    };
+
+    verifySession();
+  }, []);
 
   const login = (user: User) => {
     setUser(user);
