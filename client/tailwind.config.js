@@ -100,7 +100,8 @@ module.exports = {
   			inria: [
   				'Inria Sans',
   				'sans-serif'
-  			]
+  			],
+			bubbly: ['Fredoka One', 'sans-serif']
   		}
   	}
   },

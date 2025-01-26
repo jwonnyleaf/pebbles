@@ -1,14 +1,20 @@
 
 const Inventory = () => {
     return (
-        <div className="grid min-h-svh lg:grid-cols-4 bg-lightgreen text-silver">
-          <h1 className="text-center text-3xl p-10">Hello, Tailwind React!</h1>
-          <div className="grid grid-cols-12 place-content-center">
-            <div className="w-[500px] h-90 bg-blue-500 rounded-[30px]">
-                let me pull pls
-            </div>
-            </div>
+        <div className="h-full min-w-full bg-lightgreen flex items-center justify-center gap-7">
+       
+     {/* Card 1 */}
+     <div className="w-1/2 h-4/5 bg-white rounded-3xl ml-8 p-8">
+        <div className="w-full h-4/5 bg-green rounded-[15px] p-4 text-white">
+        <h1 className="text-3xl font-bubbly p-3">Pebbles</h1>
         </div>
+      </div>
+
+      {/* Card 2 */}
+      <div className="w-1/2 h-4/5 bg-white rounded-3xl mr-8 p-8">
+        <h1 className="text-2xl font-bubbly mb-4">Card 2</h1>
+      </div>
+    </div>
       );
   };
   
