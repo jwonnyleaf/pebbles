@@ -28,14 +28,14 @@ const ShopPopUp: React.FC<ShopModalProps> = ({ isOpen, onClose }) => {
           </div>
           {/* Shop Items */}
           <div className="grid grid-cols-4 gap-3 w-full mr-5 mt-14">
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
-            <div className="w-[150px] h-[150px] bg-[#46655C] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
+            <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
           </div>
         </div>
       </div>
