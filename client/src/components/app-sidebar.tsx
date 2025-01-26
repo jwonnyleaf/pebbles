@@ -66,7 +66,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <a href="/dashboard">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
                   <img src={Logo} alt="Pebbles." />
                 </div>
