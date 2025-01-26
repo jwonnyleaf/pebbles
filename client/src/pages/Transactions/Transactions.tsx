@@ -44,10 +44,8 @@ const Transactions = () => {
       const data = await response.json();
       setTransactions(data);
     } catch (err: any) {
-      setError(err.message || 'An error occurred');
       console.error('Error fetching transactions:', err);
     } finally {
-      setLoading(false);
     }
   };
 

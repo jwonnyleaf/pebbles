@@ -92,3 +92,29 @@ export const getUserBalance = async (req: Request, res: Response) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+export const updateUserBalance = async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+    const { delta } = req.body;
+
+    if (typeof delta !== 'number') {
+      res.status(400).send({ message: 'Delta must be a number' });
+      return;
+    }
+
+    const user = await UserModel.findById(userID);
+
+    if (!user) {
+      res.status(404).send({ message: 'User not found' });
+      return;
+    }
+
+    user.balance = (user.balance || 0) + delta;
+    await user.save();
+
+    res.status(200).send({ message: 'Balance updated successfully', user });
+  } catch (error: any) {
+    res.status(500).send({ message: error.message });
+  }
+};
