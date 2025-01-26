@@ -10,10 +10,4 @@ export default defineConfig({
       assets: path.resolve(__dirname, './src/assets'),
     },
   },
-  server: {
-    proxy: {
-      '/api': 'http://localhost:4000',
-      '/proxy': 'http://localhost:4000',
-    },
-  },
 });
