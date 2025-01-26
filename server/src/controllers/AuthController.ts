@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/UserModel';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 export const register = async (req: Request, res: Response) => {
@@ -30,8 +30,45 @@ export const login = async (req: Request, res: Response) => {
         expiresIn: '24h',
       }
     );
-    res.status(200).send({ message: 'User Successfully Logged In', token });
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.send({ message: 'Logged in successfully' });
   } catch (error: any) {
     res.status(500).send({ message: error.message });
+  }
+};
+
+export const verifySession = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(401).send({ isAuthenticated: false });
+    return;
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    if (typeof decoded === 'object' && 'id' in decoded) {
+      const user = await UserModel.findById(
+        (decoded as JwtPayload & { id: string }).id
+      );
+      if (!user) {
+        res.status(401).send({ isAuthenticated: false });
+        return;
+      }
+      res.send({ isAuthenticated: true, user });
+    } else {
+      res.status(401).send({
+        isAuthenticated: false,
+        message: 'Token structure is incorrect',
+      });
+    }
+  } catch (error) {
+    res.status(401).send({ isAuthenticated: false });
   }
 };

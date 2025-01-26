@@ -1,10 +1,9 @@
-const Home = () => {
+const Landing = () => {
   return (
     <div>
-      <h1>Home</h1>
-      <p>Welcome to the home page!</p>
+      <h1>Landing</h1>
     </div>
   );
 };
 
-export default Home;
+export default Landing;
