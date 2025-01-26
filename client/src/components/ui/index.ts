@@ -12,3 +12,4 @@ export {
 
 export { CarSvg } from './carSvg';
 export { CatHome } from './cathome';
+export { DecorCarSvg } from './decorCarSvg';
