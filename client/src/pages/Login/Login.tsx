@@ -2,7 +2,7 @@ import { GalleryVerticalEnd } from 'lucide-react';
 
 import { LoginForm } from '@/components/login-form';
 
-import templogin from '@/assets/templogin.jpeg';
+import templogin from '@/assets/pebbles.jpg';
 
 export default function Login() {
   return (

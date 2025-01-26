@@ -15,6 +15,7 @@ import {
   Shop,
   Settings,
   Transactions,
+  Budget,
 } from './pages';
 import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './pages/NotFound/NotFound';
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path='/inventory' element={<Inventory />} />
                 <Route path="/transactions" element={<Transactions />} />
+                <Route path="/budget" element={<Budget />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/settings" element={<Settings />} />
               </Route>
