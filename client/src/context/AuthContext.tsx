@@ -12,6 +12,7 @@ const defaultAuthContext = {
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
+  loading: true,
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
@@ -21,6 +22,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const verifySession = async () => {
@@ -37,6 +39,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         }
       } catch (error) {
         console.error('Failed to verify session:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -54,7 +58,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, login, logout, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
