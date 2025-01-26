@@ -20,6 +20,7 @@
     "mongoose": "^8.9.5"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
