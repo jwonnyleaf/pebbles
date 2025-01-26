@@ -15,13 +15,14 @@ export const register = async (req: Request, res: Response) => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
 
     const user = await UserModel.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
       res.status(401).send({ message: 'Invalid Credentials' });
+      return;
     }
     const token = jwt.sign(
       { id: user!._id },
@@ -71,4 +72,9 @@ export const verifySession = async (
   } catch (error) {
     res.status(401).send({ isAuthenticated: false });
   }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  res.clearCookie('token');
+  res.send({ message: 'Logged out successfully' });
 };
