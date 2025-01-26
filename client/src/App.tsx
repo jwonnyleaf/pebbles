@@ -6,7 +6,15 @@ import {
   Route,
   Outlet,
 } from 'react-router-dom';
-import { Landing, Login, Dashboard, Register, Account } from './pages';
+import {
+  Landing,
+  Login,
+  Dashboard,
+  Register,
+  Shop,
+  Settings,
+  Transactions,
+} from './pages';
 import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './pages/NotFound/NotFound';
 import PublicRoute from './routes/PublicRoute';
@@ -33,7 +41,9 @@ function App() {
                 }
               >
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/account" element={<Account />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/settings" element={<Settings />} />
               </Route>
             </Route>
           </Routes>

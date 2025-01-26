@@ -1,5 +1,10 @@
 import express from 'express';
-import { login, register, verifySession } from '../controllers/AuthController';
+import {
+  login,
+  register,
+  verifySession,
+  logout,
+} from '../controllers/AuthController';
 
 const router = express.Router();
 
@@ -11,5 +16,6 @@ interface LoginRequestBody {
 router.post('/register', register);
 router.post('/login', login);
 router.get('/verify-session', verifySession);
+router.post('/logout', logout);
 
 export default router;

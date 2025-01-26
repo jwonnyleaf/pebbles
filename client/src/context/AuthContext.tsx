@@ -10,7 +10,7 @@ import {
 const defaultAuthContext = {
   user: null,
   isAuthenticated: false,
-  login: () => {},
+  login: () => Promise.resolve(false),
   logout: () => {},
   loading: true,
 };
@@ -23,6 +23,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    console.log('Context user updated:', user);
+  }, [user]); // Log whenever the user changes
 
   useEffect(() => {
     const verifySession = async () => {
@@ -47,14 +51,42 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     verifySession();
   }, []);
 
-  const login = (user: User) => {
-    setUser(user);
-    setIsAuthenticated(true);
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setUser(data.user);
+        setIsAuthenticated(true);
+        return true;
+      } else {
+        throw new Error(data.message || 'Failed to log in');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
+  const logout = async () => {
+    try {
+      await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      setUser(null);
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   return (
