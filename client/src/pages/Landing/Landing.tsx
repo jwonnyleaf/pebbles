@@ -3,7 +3,7 @@ import React from 'react';
 
 const LandingPage = () => {
   return (
-    <div className="h-screen w-screen bg-[#4a6856] flex items-center justify-center">
+    <div className="h-screen w-screen bg-[#2e4b43] flex items-center justify-center">
       <div className="flex flex-col md:flex-row items-center gap-10 max-w-4xl mx-auto">
         {/* Left Side - Placeholder for Cat */}
         <div className="relative">
