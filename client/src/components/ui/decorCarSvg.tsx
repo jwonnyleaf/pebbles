@@ -191,4 +191,4 @@ const DecorCarSvg = (props: SVGProps<SVGSVGElement>) => (
     </g>
   </svg>
 )
-export { DecorCarSvg };
+export default DecorCarSvg;
