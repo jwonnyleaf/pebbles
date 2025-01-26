@@ -100,9 +100,11 @@ module.exports = {
   			inria: [
   				'Inria Sans',
   				'sans-serif'
-  			]
+  			],
+			bubbly: ['Fredoka One', 'sans-serif'],
+			poppins: ["Poppins"]
   		}
   	}
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')]
 };
