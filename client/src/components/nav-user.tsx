@@ -35,7 +35,9 @@ export function NavUser() {
 
   const fetchBalance = async () => {
     try {
-      const response = await fetch(`/api/balance/${user!.id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/balance/${user!.id}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch balance');
       }

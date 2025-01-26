@@ -1,5 +1,4 @@
 import { CarSvg } from '@/components/ui';
-import React from 'react';
 
 const LandingPage = () => {
   return (

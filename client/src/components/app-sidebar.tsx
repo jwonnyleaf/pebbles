@@ -41,6 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     {
       title: 'Store',
       icon: Store,
+      url: '',
       isActive: true,
       items: [
         {

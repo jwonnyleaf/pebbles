@@ -34,9 +34,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     const verifySession = async () => {
       try {
-        const response = await fetch('/api/verify-session', {
-          credentials: 'include',
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/verify-session`,
+          {
+            credentials: 'include',
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           if (data.isAuthenticated) {
@@ -61,14 +64,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+          credentials: 'include',
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         const dataUser = {
@@ -91,7 +97,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const logout = async () => {
     try {
-      await fetch('/api/logout', {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
         method: 'POST',
         credentials: 'include',
       });

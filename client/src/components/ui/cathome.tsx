@@ -1,5 +1,3 @@
-import React from 'react';
-// import { CarSvg } from "@/components/ui/carSvg";
 import { CarSvg } from '@/components/ui/carSvg';
 
 const CatHome = () => {

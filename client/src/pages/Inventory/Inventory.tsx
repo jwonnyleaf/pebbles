@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
 import ShopPopUp from '@/components/ui/shoppopup';
 import { CarSvg } from '@/components/ui/carSvg';
 import DecorCarSvg from '@/components/ui/decorCarSvg';
 import { CatBow } from '@/components/ui/catBow';
 import { useAuth } from '@/context/AuthContext';
+import { useState } from 'react';
 
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,19 +17,24 @@ const Inventory = () => {
   const handleBuyBow = async () => {
     console.log('Buying bow');
     try {
-      const response = await fetch(`/api/balance/${user!.id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/balance/${user!.id}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch balance');
       }
       const data = await response.json();
       if (data.balance >= bowPrice) {
-        const response = await fetch(`/api/user/${user!.id}/balance`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ delta: -bowPrice }),
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/${user!.id}/balance`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ delta: -bowPrice }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error('Failed to update balance');
