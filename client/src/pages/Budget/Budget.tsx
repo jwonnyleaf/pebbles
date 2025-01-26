@@ -51,7 +51,7 @@ const Budget = () => {
         {/* Monthly Spending Card */}
         <Card className="flex flex-col bg-white rounded-3xl p-8">
           <CardHeader className="items-center pb-0 text-green">
-            <CardTitle className="text-xl">
+            <CardTitle className="text-xl text-center">
               <b>Monthly Spending</b>
               <p>------------------------------</p>
             </CardTitle>
@@ -79,7 +79,7 @@ const Budget = () => {
         {/* Income Card */}
         <Card className="flex flex-col bg-white rounded-3xl p-8 text-green">
           <CardHeader className="items-center pb-0 text-green">
-            <CardTitle className="text-xl">
+            <CardTitle className="text-xl text-center">
               <b>Income</b>
               <p>------------------------------</p>
             </CardTitle>
@@ -116,7 +116,7 @@ const Budget = () => {
       <div className="col-span-2 h-full bg-lightgreen flex items-center justify-center">
         <Card className="w-full bg-white rounded-3xl p-8 h-full">
           <CardHeader className="items-center pb-0 text-green">
-            <CardTitle className="text-xl">
+            <CardTitle className="text-xl text-center">
               <b>Expenses</b>
               <p>------------------------------</p>
             </CardTitle>
@@ -128,7 +128,7 @@ const Budget = () => {
                 data={pieData}
                 layout="vertical"
                 margin={{
-                  left: 0,
+                  left: 50,
                 }}
               >
                 <YAxis
