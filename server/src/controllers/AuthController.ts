@@ -35,6 +35,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       httpOnly: true,
       secure: true,
       maxAge: 24 * 60 * 60 * 1000,
+      sameSite: 'none',
     });
     res.send({ message: 'Logged in successfully', user });
   } catch (error: any) {
