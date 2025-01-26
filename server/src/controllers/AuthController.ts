@@ -78,3 +78,17 @@ export const logout = async (req: Request, res: Response) => {
   res.clearCookie('token');
   res.send({ message: 'Logged out successfully' });
 };
+
+export const getUserBalance = async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+    const user = await UserModel.findById(userID).select('balance');
+    if (!user) {
+      res.status(404).send({ message: 'User not found' });
+      return;
+    }
+    res.status(200).send({ balance: user.balance });
+  } catch (error: any) {
+    res.status(500).send({ message: error.message });
+  }
+};

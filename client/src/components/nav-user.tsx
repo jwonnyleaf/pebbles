@@ -1,7 +1,6 @@
 'use client';
 
-import { BadgeCheck, Bell, ChevronsUpDown, LogOut } from 'lucide-react';
-
+import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -20,9 +19,11 @@ import {
 } from '@/components/ui/sidebar';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import PebblesSVG from '@/assets/pebbles.svg';
+import { useEffect, useState } from 'react';
 
 export function NavUser() {
+  const [balance, setBalance] = useState<number>(0);
   const { isMobile } = useSidebar();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -32,6 +33,23 @@ export function NavUser() {
     navigate('/login');
   };
 
+  const fetchBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance/${user!.id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch balance');
+      }
+      const data = await response.json();
+      setBalance(data.balance);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBalance();
+  }, []);
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -39,7 +57,7 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-green-dark data-[state=open]:text-sidebar-accent-foreground"
+              className="bg-green-dark data-[state=open]:bg-green-dark data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user!.avatar} />
@@ -75,13 +93,8 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
+                <img src={PebblesSVG} alt="Pebbles." className="w-4 h-4" />
+                {balance}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
