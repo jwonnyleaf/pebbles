@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ShopPopUp from "@/components/ui/shoppopup";
 import { CarSvg } from "@/components/ui/carSvg";
 import DecorCarSvg from "@/components/ui/decorCarSvg";
+import { CatBow } from "@/components/ui/catBow";
 
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,9 +48,10 @@ const Inventory = () => {
         {!hasBow ? (
                 <button
                   onClick={() => setHasBow(true)} // Equip the bow
-                  className="bg-white border-2 border-green h-1/8 rounded-[10px] hover:scale-105"
+                  className="bg-white border-2 border-green h-1/8 rounded-[10px] hover:scale-105 flex justify-center items-center"
                 >
-                  🎀
+                  <CatBow className = "w-24 h-24" />
+
                 </button>
               ) : (
                 <button

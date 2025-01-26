@@ -1,4 +1,5 @@
 import React from "react";
+import { CatBow } from "@/components/ui/catBow"
 
 interface ShopModalProps {
   isOpen: boolean;
@@ -42,7 +43,7 @@ const ShopPopUp: React.FC<ShopModalProps> = ({ isOpen, onClose, onBuyBow }) => {
               onClick={onBuyBow} // Trigger the bow purchase when clicked
               className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105 flex items-center justify-center cursor-pointer"
             >
-              🎀
+                <CatBow className = "w-24 h-24" />
             </div>
             {/* Other Items */}
             <div className="w-[150px] h-[150px] border-2 border-[#46655C] bg-[#FFFFFF] rounded-3xl hover:scale-105"></div>
