@@ -25,10 +25,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    console.log('Context user updated:', user);
-  }, [user]); // Log whenever the user changes
-
-  useEffect(() => {
     const verifySession = async () => {
       try {
         const response = await fetch('/api/verify-session', {
@@ -65,6 +61,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       if (response.ok) {
         setUser(data.user);
         setIsAuthenticated(true);
+        console.log(data);
         return true;
       } else {
         throw new Error(data.message || 'Failed to log in');

@@ -50,7 +50,7 @@ export function LoginForm({
           <Input
             id="email"
             type="email"
-            placeholder="pebbles@example.com"
+            placeholder="Email"
             required
             onChange={handleEmailChange}
           />
@@ -68,6 +68,7 @@ export function LoginForm({
           <Input
             id="password"
             type="password"
+            placeholder="Password"
             required
             onChange={handlePasswordChange}
           />

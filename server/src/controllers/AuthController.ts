@@ -36,7 +36,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       secure: true,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res.send({ message: 'Logged in successfully' });
+    res.send({ message: 'Logged in successfully', user });
   } catch (error: any) {
     res.status(500).send({ message: error.message });
   }

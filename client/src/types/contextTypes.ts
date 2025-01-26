@@ -1,7 +1,7 @@
 import { User } from './authTypes';
 
 export interface AuthContextType {
-  user: User;
+  user: User | null;
   isAuthenticated: boolean;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
