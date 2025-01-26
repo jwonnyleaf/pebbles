@@ -3,6 +3,7 @@ import { CarSvg } from '@/components/ui/carSvg';
 import DecorCarSvg from '@/components/ui/decorCarSvg';
 import { CatBow } from '@/components/ui/catBow';
 import { useAuth } from '@/context/AuthContext';
+import { useState } from 'react';
 
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
