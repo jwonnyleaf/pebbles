@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { useAuth } from '@/context/AuthContext';
 
 const Transactions = () => {
   const { user } = useAuth();
   const [transactions, setTransactions] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
   const transactionData = {
     userID: user!.id,
+    name: 'Test Transaction',
     amount: 100,
     type: 'credit',
   };
@@ -19,9 +27,6 @@ const Transactions = () => {
       alert('User not logged in');
       return;
     }
-
-    setLoading(true);
-    setError(null);
 
     try {
       const response = await fetch(`/api/transact/${user.id}`, {
@@ -69,27 +74,44 @@ const Transactions = () => {
     }
   };
 
-  // Fetch transactions when the component mounts
   useEffect(() => {
     fetchTransactions();
   }, []);
 
   return (
-    <div>
-      <h1>Transactions</h1>
-      <button onClick={createTransaction}>Create Transaction</button>
-
-      {loading && <p>Loading transactions...</p>}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-
-      <ul>
-        {transactions.map((transaction) => (
-          <li key={transaction._id}>
-            <strong>Type:</strong> {transaction.type} | <strong>Amount:</strong>{' '}
-            {transaction.amount}
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow flex flex-col p-4 bg-green-dark rounded-[1rem]">
+        <Table className="flex-grow text-white">
+          <TableHeader>
+            <TableRow className="font-bold">
+              <TableHead className="w-[100px]">Invoice</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead className="text-right">Amount</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {transactions.map((transaction) => (
+              <TableRow key={transaction._id}>
+                <TableCell className="font-medium">{transaction._id}</TableCell>
+                <TableCell>{transaction.name}</TableCell>
+                <TableCell>{transaction.type}</TableCell>
+                <TableCell className="text-right">
+                  {transaction.amount}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="p-4 bg-gray-200">
+        <button
+          onClick={createTransaction}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Create Transaction
+        </button>
+      </div>
     </div>
   );
 };

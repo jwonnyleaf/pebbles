@@ -6,6 +6,7 @@ import {
   ReactNode,
   useEffect,
 } from 'react';
+import { useAlert } from './AlertContext';
 
 const defaultAuthContext = {
   user: null,
@@ -27,6 +28,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const verifySession = async () => {
@@ -77,6 +80,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         console.log(data);
         return true;
       } else {
+        showAlert('Failed to Log In', 'Try Again!', true);
         throw new Error(data.message || 'Failed to log in');
       }
     } catch (error) {

@@ -4,7 +4,7 @@ import UserModel from '../models/UserModel';
 
 export const createTransaction = async (req: Request, res: Response) => {
   try {
-    const { userID, amount, type } = req.body;
+    const { userID, name, amount, type } = req.body;
 
     const user = await UserModel.findById(userID);
     if (!user) {
@@ -14,6 +14,7 @@ export const createTransaction = async (req: Request, res: Response) => {
 
     const transaction = await TransactionModel.create({
       user: user._id,
+      name,
       amount,
       type,
     });
