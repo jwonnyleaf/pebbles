@@ -1,4 +1,5 @@
 import { Pie, PieChart } from "recharts"
+import { Bar, BarChart, XAxis, YAxis } from "recharts"
 import {
     Card,
     CardContent,
@@ -12,11 +13,16 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const chartData = [
+const pieData = [
     { budget: "groceries", pebbles: 500, fill: "purple" },
     { budget: "rent", pebbles: 600, fill: "pink" },
     { budget: "utilities", pebbles: 300, fill: "silver" },
     { budget: "fun", pebbles: 100, fill: "salmon" },
+]
+
+const incomeData = [
+    { total: "beg", pebbles: 300, fill: "purple" },
+    { total: "crime", pebbles: 100, fill: "salmon" },
 ]
 
 const chartConfig: ChartConfig = {
@@ -35,6 +41,12 @@ const chartConfig: ChartConfig = {
     fun: {
         label: "fun",
     },
+    beg: {
+        label: "beg",
+    },
+    crime: {
+        label: "crime",
+    },
 } satisfies ChartConfig
 
 const Budget = () => {
@@ -45,9 +57,9 @@ const Budget = () => {
                 {/* Monthly Spending Card */}
                 <Card className="flex flex-col bg-white rounded-3xl p-8">
                     <CardHeader className="items-center pb-0 text-green">
-                        <CardTitle className="text-lg">
+                        <CardTitle className="text-xl">
                             <b>Monthly Spending</b>
-                            <p>---------------------------------</p>
+                            <p>------------------------------</p>
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex-1 pb-0 text-green">
@@ -61,7 +73,7 @@ const Budget = () => {
                                     content={<ChartTooltipContent hideLabel />}
                                 />
                                 <Pie
-                                    data={chartData}
+                                    data={pieData}
                                     dataKey="pebbles"
                                     nameKey="budget"
                                     innerRadius={45}
@@ -71,25 +83,75 @@ const Budget = () => {
                     </CardContent>
                 </Card>
                 {/* Income Card */}
-                <Card className="flex flex-col bg-white rounded-3xl p-8">
+                <Card className="flex flex-col bg-white rounded-3xl p-8 text-green">
                     <CardHeader className="items-center pb-0 text-green">
-                        <CardTitle className="text-lg">
-                            <b>Income</b>
-                            <p>---------------------------------</p>
-                        </CardTitle>
+                        <CardTitle className="text-xl"><b>Income</b>
+                            <p>------------------------------</p></CardTitle>
                     </CardHeader>
+                    <CardContent>
+                        <ChartContainer config={chartConfig}>
+                            <BarChart
+                                accessibilityLayer
+                                data={incomeData}
+                                layout="vertical"
+                                margin={{
+                                    left: 0,
+                                }}
+                            >
+                                <YAxis className="text-green"
+                                    dataKey="total"
+                                    type="category"
+                                    tickLine={false}
+                                    tickMargin={10}
+                                    axisLine={false}
+                                />
+                                <XAxis dataKey="pebbles" type="number" hide />
+                                <ChartTooltip
+                                    cursor={false}
+                                    content={<ChartTooltipContent hideLabel />}
+                                />
+                                <Bar dataKey="pebbles" layout="vertical" radius={5} />
+                            </BarChart>
+                        </ChartContainer>
+                    </CardContent>
                 </Card>
             </div>
 
             {/* Right Column */}
-            <div>
+            <div className="col-span-1.5 ...">
                 <Card className="flex flex-col bg-white rounded-3xl p-8 h-full">
                     <CardHeader className="items-center pb-0 text-green">
-                        <CardTitle className="text-lg">
+                        <CardTitle className="text-xl">
                             <b>Expenses</b>
-                            <p>---------------------------------</p>
+                            <p>------------------------------</p>
                         </CardTitle>
                     </CardHeader>
+                    <CardContent>
+                        <ChartContainer config={chartConfig}>
+                            <BarChart
+                                accessibilityLayer
+                                data={pieData}
+                                layout="vertical"
+                                margin={{
+                                    left: 0,
+                                }}
+                            >
+                                <YAxis className="text-green"
+                                    dataKey="budget"
+                                    type="category"
+                                    tickLine={false}
+                                    tickMargin={10}
+                                    axisLine={false}
+                                />
+                                <XAxis dataKey="pebbles" type="number" hide />
+                                <ChartTooltip
+                                    cursor={false}
+                                    content={<ChartTooltipContent hideLabel />}
+                                />
+                                <Bar dataKey="pebbles" layout="vertical" radius={5} />
+                            </BarChart>
+                        </ChartContainer>
+                    </CardContent>
                 </Card>
             </div>
         </div>
