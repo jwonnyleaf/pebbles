@@ -1,9 +1,7 @@
-import * as React from "react"
-import { SVGProps } from "react"
-import { motion } from "framer-motion"
+import { SVGProps } from 'react';
+import { motion } from 'framer-motion';
 
 const CarSvg = (props: SVGProps<SVGSVGElement>) => (
-  
   <svg
     width={329}
     height={471}
@@ -13,31 +11,31 @@ const CarSvg = (props: SVGProps<SVGSVGElement>) => (
     {...props}
   >
     <g id="car">
-    <motion.path
-          id="tail"
-          d="M60.3618 289.166C51.6495 326.827 79.1101 350.069 94.3258 357.212C94.6094 357.345 94.8897 357.441 95.194 357.516C120.827 363.781 162.216 371.544 126.042 353.242C89.6989 328.073 86.1493 304.711 88.9173 296.176C106.851 246.19 73.4546 210.748 54.9166 211.331C53.2976 211.381 51.8398 212.187 50.6103 213.242L44.2359 218.709C38.0591 224.007 40.3462 235.035 46.6174 240.221C57.2913 249.047 66.0504 264.575 60.3618 289.166Z"
-          fill="#C0BDBD"
-          initial={{ rotate: 0 }}
-          animate={{ rotate: [0, 10, -10, 5, -5, 0] }} // Swaying movement
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-          style={{ transformOrigin: "bottom center" }}
-        />
-        <motion.g
-          id="body"
-          initial={{ y: 0 }} // Ensures animation starts at neutral position
-          animate={{ y: [-10, 0, -10] }} // Moves slightly up and down
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-        >
+      <motion.path
+        id="tail"
+        d="M60.3618 289.166C51.6495 326.827 79.1101 350.069 94.3258 357.212C94.6094 357.345 94.8897 357.441 95.194 357.516C120.827 363.781 162.216 371.544 126.042 353.242C89.6989 328.073 86.1493 304.711 88.9173 296.176C106.851 246.19 73.4546 210.748 54.9166 211.331C53.2976 211.381 51.8398 212.187 50.6103 213.242L44.2359 218.709C38.0591 224.007 40.3462 235.035 46.6174 240.221C57.2913 249.047 66.0504 264.575 60.3618 289.166Z"
+        fill="#C0BDBD"
+        initial={{ rotate: 0 }}
+        animate={{ rotate: [0, 10, -10, 5, -5, 0] }} // Swaying movement
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          repeatType: 'mirror',
+          ease: 'easeInOut',
+        }}
+        style={{ transformOrigin: 'bottom center' }}
+      />
+      <motion.g
+        id="body"
+        initial={{ y: 0 }} // Ensures animation starts at neutral position
+        animate={{ y: [-10, 0, -10] }} // Moves slightly up and down
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          repeatType: 'mirror',
+          ease: 'easeInOut',
+        }}
+      >
         <path
           id="body_2"
           d="M85 370.5C85 311 102 255.833 118 231.5C136.667 212.333 183.3 185.5 220.5 231.5C257.7 277.5 264.667 343.333 263.5 370.5V446.5H85C90 443.167 85 424.646 85 370.5Z"
@@ -91,16 +89,16 @@ const CarSvg = (props: SVGProps<SVGSVGElement>) => (
         />
       </motion.g>
       <motion.g
-          id="head"
-          initial={{ y: 0 }} // Ensures animation starts at neutral position
-          animate={{ y: [-5, 0, -5] }} // Moves slightly up and down
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}
-        >
+        id="head"
+        initial={{ y: 0 }} // Ensures animation starts at neutral position
+        animate={{ y: [-5, 0, -5] }} // Moves slightly up and down
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          repeatType: 'mirror',
+          ease: 'easeInOut',
+        }}
+      >
         <path
           id="ear_1"
           d="M53.6388 82.1506C48.7835 67.8402 60.9428 53.5216 75.8508 55.9941L118.314 63.037C133.644 65.5795 140.345 83.8687 130.287 95.7133L101.653 129.432C91.5948 141.276 72.4615 137.627 67.4688 122.912L53.6388 82.1506Z"
@@ -149,5 +147,5 @@ const CarSvg = (props: SVGProps<SVGSVGElement>) => (
       </motion.g>
     </g>
   </svg>
-)
+);
 export { CarSvg };

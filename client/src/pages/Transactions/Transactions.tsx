@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -29,13 +28,16 @@ const Transactions = () => {
     }
 
     try {
-      const response = await fetch(`/api/transact/${user.id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Include cookies for authentication
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/transact/${user.id}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include', // Include cookies for authentication
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to fetch transactions');
@@ -52,13 +54,16 @@ const Transactions = () => {
   // Function to create a transaction
   const createTransaction = async () => {
     try {
-      const response = await fetch('/api/transact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(transactionData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/transact`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(transactionData),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         alert('Transaction Created: ' + JSON.stringify(data));

@@ -1,6 +1,5 @@
-import * as React from "react"
-import { SVGProps } from "react"
-import { motion } from "framer-motion"
+import { SVGProps } from 'react';
+import { motion } from 'framer-motion';
 
 const DecorCarSvg = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -22,22 +21,22 @@ const DecorCarSvg = (props: SVGProps<SVGSVGElement>) => (
           transition={{
             duration: 1.5,
             repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
+            repeatType: 'mirror',
+            ease: 'easeInOut',
           }}
-          style={{ transformOrigin: "bottom center" }}
+          style={{ transformOrigin: 'bottom center' }}
         />
         <motion.g
-                  id="body"
-                  initial={{ y: 0 }} // Ensures animation starts at neutral position
-                  animate={{ y: [-10, 0, -10] }} // Moves slightly up and down
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                  }}
-                >
+          id="body"
+          initial={{ y: 0 }} // Ensures animation starts at neutral position
+          animate={{ y: [-10, 0, -10] }} // Moves slightly up and down
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: 'mirror',
+            ease: 'easeInOut',
+          }}
+        >
           <path
             id="body_2"
             d="M81 385.5C81 326 98 270.833 114 246.5C132.667 227.333 179.3 200.5 216.5 246.5C253.7 292.5 260.667 358.333 259.5 385.5V461.5H81C86 458.167 81 439.646 81 385.5Z"
@@ -91,16 +90,16 @@ const DecorCarSvg = (props: SVGProps<SVGSVGElement>) => (
           />
         </motion.g>
         <motion.g
-                  id="head"
-                  initial={{ y: 0 }} // Ensures animation starts at neutral position
-                  animate={{ y: [-5, 0, -5] }} // Moves slightly up and down
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                  }}
-                >
+          id="head"
+          initial={{ y: 0 }} // Ensures animation starts at neutral position
+          animate={{ y: [-5, 0, -5] }} // Moves slightly up and down
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            repeatType: 'mirror',
+            ease: 'easeInOut',
+          }}
+        >
           <path
             id="ear_1"
             d="M53.6388 92.1506C48.7835 77.8402 60.9428 63.5216 75.8508 65.9942L118.314 73.037C133.644 75.5795 140.345 93.8687 130.287 105.713L101.653 139.432C91.5948 151.276 72.4615 147.627 67.4688 132.912L53.6388 92.1506Z"
@@ -149,16 +148,16 @@ const DecorCarSvg = (props: SVGProps<SVGSVGElement>) => (
         </motion.g>
       </g>
       <motion.g
-                id="bow"
-                initial={{ y: 0 }} // Ensures animation starts at neutral position
-                animate={{ y: [-5, 0, -5] }} // Moves slightly up and down
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "mirror",
-                  ease: "easeInOut",
-                }}
-              >
+        id="bow"
+        initial={{ y: 0 }} // Ensures animation starts at neutral position
+        animate={{ y: [-5, 0, -5] }} // Moves slightly up and down
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          repeatType: 'mirror',
+          ease: 'easeInOut',
+        }}
+      >
         <path
           id="triangle2"
           d="M212.532 92.1521C209.226 85.6573 213.755 77.9214 221.036 77.6245L247.9 76.529C255.801 76.2069 260.932 84.7488 256.937 91.5728L242.269 116.629C238.274 123.453 228.314 123.16 224.727 116.113L212.532 92.1521Z"
@@ -190,5 +189,5 @@ const DecorCarSvg = (props: SVGProps<SVGSVGElement>) => (
       </motion.g>
     </g>
   </svg>
-)
+);
 export default DecorCarSvg;
