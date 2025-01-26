@@ -12,9 +12,9 @@ const Inventory = () => {
 
       {/* Card 2 */}
       <div className="w-1/2 h-4/5 bg-white rounded-3xl mr-8 p-8 items-center justify-center ">
-        <div className="grid grid-rows-4 grid-cols-2 h-full w-full gap-4">
+        <div className="grid grid-rows-4 grid-cols-2 h-full w-full gap-6">
         {/* Box 1 */}
-        <div className="bg-green h-1/8 rounded-[10px]"></div>
+        <div className="bg-lightgreen h-1/8 rounded-[10px]"></div>
         {/* Box 2 */}
         <div className="bg-green h-1/8 rounded-[10px]"></div>
         {/* Box 3 */}
