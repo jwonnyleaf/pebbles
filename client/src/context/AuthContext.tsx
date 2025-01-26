@@ -17,6 +17,10 @@ const defaultAuthContext = {
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -33,13 +37,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         if (response.ok) {
           const data = await response.json();
           if (data.isAuthenticated) {
-            setUser(data.user);
+            const dataUser = {
+              id: data.user._id,
+              ...data.user,
+            };
+            setUser(dataUser);
             setIsAuthenticated(true);
           }
         }
       } catch (error) {
         console.error('Failed to verify session:', error);
       } finally {
+        await delay(500);
         setLoading(false);
       }
     };
@@ -59,7 +68,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       });
       const data = await response.json();
       if (response.ok) {
-        setUser(data.user);
+        const dataUser = {
+          id: data.user._id,
+          ...data.user,
+        };
+        setUser(dataUser);
         setIsAuthenticated(true);
         console.log(data);
         return true;

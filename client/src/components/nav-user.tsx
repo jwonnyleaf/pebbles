@@ -27,10 +27,6 @@ export function NavUser() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log('Updated user in NavUser:', user);
-  }, [user]);
-
   const handleLogout = async () => {
     await logout();
     navigate('/login');
