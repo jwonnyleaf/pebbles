@@ -1,11 +1,13 @@
-// import CarSvg from '@/components/ui/carSvg'
-
+import { CatHome } from '@/components/ui';
 
 const Dashboard = () =>  {
   return (
-    <div>
-      <h1>hello</h1>
-      {/* < CarSvg /> */}
+      <div className="Cat-Home"> 
+        <div style={{ backgroundColor: "#CBDED9", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div>
+            <CatHome/>
+          </div>
+        </div>
     </div>
   );
 };
