@@ -1,10 +1,16 @@
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Landing, Login, Dashboard, Register } from './pages';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from 'react-router-dom';
+import { Landing, Login, Dashboard, Register, Account } from './pages';
 import ProtectedRoute from './routes/ProtectedRoute';
 import NotFound from './pages/NotFound/NotFound';
 import PublicRoute from './routes/PublicRoute';
+import Layout from './layout/Layout';
 
 function App() {
   return (
@@ -19,7 +25,16 @@ function App() {
               <Route path="/register" element={<Register />} />
             </Route>
             <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route
+                element={
+                  <Layout>
+                    <Outlet />
+                  </Layout>
+                }
+              >
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/account" element={<Account />} />
+              </Route>
             </Route>
           </Routes>
         </Router>
