@@ -5,6 +5,7 @@ interface User {
   name: string;
   email: string;
   password: string;
+  avatar: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +18,7 @@ const userSchema = new mongoose.Schema<User>({
     unique: true,
   },
   password: { type: String, required: [true, 'Your password is required'] },
+  avatar: { type: String, default: 'https://i.imgur.com/6VBx3io.png' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date },
 });
@@ -29,4 +31,3 @@ userSchema.pre('save', async function () {
 
 const UserModel = mongoose.model<User>('User', userSchema);
 export default UserModel;
-

@@ -24,19 +24,8 @@ export function LoginForm({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to login');
-      }
-      const data = await response.json();
-      if (response.ok) {
-        login(data.user);
+      const success = await login(email, password);
+      if (success) {
         navigate('/dashboard');
       }
     } catch (error) {
