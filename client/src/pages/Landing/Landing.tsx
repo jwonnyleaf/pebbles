@@ -1,4 +1,3 @@
-// import CarSvg from './components/ui/carSvg'
 import { CatHome } from '@/components/ui';
 
 const Landing = () => {
@@ -9,8 +8,6 @@ const Landing = () => {
             <CatHome/>
           </div>
         </div>
-
-      {/* <CarSvg /> */}
     </div>
   );
 };

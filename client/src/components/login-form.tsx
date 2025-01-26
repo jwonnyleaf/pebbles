@@ -2,13 +2,42 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'form'>) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <form className={cn('flex flex-col gap-6', className)} {...props}>
+    <form
+      className={cn('flex flex-col gap-6', className)}
+      onSubmit={handleSubmit}
+      {...props}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-3xl font-bold">Login to your account</h1>
         <p className="text-balance text-m text-muted-foreground">
@@ -23,6 +52,7 @@ export function LoginForm({
             type="email"
             placeholder="pebbles@example.com"
             required
+            onChange={handleEmailChange}
           />
         </div>
         <div className="grid gap-2">
@@ -35,7 +65,12 @@ export function LoginForm({
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            id="password"
+            type="password"
+            required
+            onChange={handlePasswordChange}
+          />
         </div>
         <Button type="submit" className="w-full">
           Login
@@ -43,8 +78,8 @@ export function LoginForm({
       </div>
       <div className="text-center text-m">
         Don&apos;t have an account?{' '}
-        <a href="#" className="underline underline-offset-4">
-          Sign up
+        <a href="/register" className="underline underline-offset-4">
+          Register
         </a>
       </div>
     </form>
