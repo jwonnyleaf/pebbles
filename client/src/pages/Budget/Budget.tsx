@@ -9,20 +9,23 @@ import {
 } from '@/components/ui/chart';
 
 const pieData = [
-  { budget: 'groceries', pebbles: 500, fill: '#f7b2b7' },
-  { budget: 'rent', pebbles: 600, fill: '#f7717d' },
-  { budget: 'utilities', pebbles: 300, fill: '#de639a' },
-  { budget: 'fun', pebbles: 100, fill: '#5D255F' },
+  { budget: 'groceries', dollars: 500, fill: '#f7b2b7' },
+  { budget: 'rent', dollars: 600, fill: '#f7717d' },
+  { budget: 'utilities', dollars: 300, fill: '#de639a' },
+  { budget: 'fun', dollars: 100, fill: '#5D255F' },
+  { budget: 'emergency', dollars: 200, fill: '#f7b2b7' },
+  { budget: 'food', dollars: 150, fill: '#f7717d' },
+  { budget: 'personal', dollars: 100, fill: '#de639a' }
 ];
 
 const incomeData = [
-  { total: 'beg', pebbles: 300, fill: '#5D255F' },
-  { total: 'crime', pebbles: 100, fill: '#f7717d' },
+  { total: 'pay', dollars: 300, fill: '#5D255F' },
+  { total: 'grants', dollars: 100, fill: '#f7717d' },
 ];
 
 const chartConfig: ChartConfig = {
-  pebbles: {
-    label: 'pebbles',
+  dollars: {
+    label: 'dollars',
   },
   groceries: {
     label: 'groceries',
@@ -33,6 +36,9 @@ const chartConfig: ChartConfig = {
   utilities: {
     label: 'utilities',
   },
+  emergency: {
+    label: 'emergency',
+  },
   fun: {
     label: 'fun',
   },
@@ -41,6 +47,12 @@ const chartConfig: ChartConfig = {
   },
   crime: {
     label: 'crime',
+  },
+  food: {
+    label: 'food',
+  },
+  personal: {
+    label: 'personal ',
   },
 } satisfies ChartConfig;
 
@@ -68,7 +80,7 @@ const Budget = () => {
                 />
                 <Pie
                   data={pieData}
-                  dataKey="pebbles"
+                  dataKey="dollars"
                   nameKey="budget"
                   innerRadius={45}
                 />
@@ -102,12 +114,12 @@ const Budget = () => {
                   tickMargin={10}
                   axisLine={false}
                 />
-                <XAxis dataKey="pebbles" type="number" hide />
+                <XAxis dataKey="dollars" type="number" hide />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent hideLabel />}
                 />
-                <Bar dataKey="pebbles" layout="vertical" radius={5} />
+                <Bar dataKey="dollars" layout="vertical" radius={5} />
               </BarChart>
             </ChartContainer>
           </CardContent>
@@ -130,6 +142,8 @@ const Budget = () => {
                 margin={{
                   left: 50,
                 }}
+                barCategoryGap="50%" 
+                barGap= {20}
               >
                 <YAxis
                   className="text-green"
@@ -139,12 +153,12 @@ const Budget = () => {
                   tickMargin={10}
                   axisLine={false}
                 />
-                <XAxis dataKey="pebbles" type="number" hide />
+                <XAxis dataKey="dollars" type="number" hide />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent hideLabel />}
                 />
-                <Bar dataKey="pebbles" layout="vertical" radius={5} />
+                <Bar dataKey="dollars" layout="vertical" radius={5} barSize= {45} />
               </BarChart>
             </ChartContainer>
           </CardContent>
