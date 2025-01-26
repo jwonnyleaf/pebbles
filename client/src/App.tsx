@@ -11,6 +11,7 @@ import {
   Login,
   Dashboard,
   Register,
+  Inventory,
   Shop,
   Settings,
   Transactions,
@@ -41,6 +42,7 @@ function App() {
                 }
               >
                 <Route path="/dashboard" element={<Dashboard />} />
+                <Route path='/inventory' element={<Inventory />} />
                 <Route path="/transactions" element={<Transactions />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/settings" element={<Settings />} />
