@@ -9,3 +9,6 @@ export {
   CardDescription,
   CardFooter,
 } from './card';
+
+export { CarSvg } from './carSvg';
+export { CatHome } from './cathome';
