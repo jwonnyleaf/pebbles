@@ -13,6 +13,8 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 
+
+
 const pieData = [
     { budget: "groceries", pebbles: 500, fill: "purple" },
     { budget: "rent", pebbles: 600, fill: "pink" },
@@ -50,8 +52,9 @@ const chartConfig: ChartConfig = {
 } satisfies ChartConfig
 
 const Budget = () => {
+
     return (
-        <div className="grid grid-cols-4 h-screen w-screen bg-lightgreen p-7 gap-8">
+        <div className="h-full min-w-full bg-lightgreen flex items-center justify-center gap-7">
             {/* Left Column */}
             <div className="flex flex-col gap-8">
                 {/* Monthly Spending Card */}
@@ -118,8 +121,8 @@ const Budget = () => {
             </div>
 
             {/* Right Column */}
-            <div className="col-span-1.5 ...">
-                <Card className="flex flex-col bg-white rounded-3xl p-8 h-full">
+            <div className="h-full min-w-full bg-lightgreen flex items-center justify-center gap-7">
+                <Card className="w-3/4 bg-white rounded-3xl p-8 h-full">
                     <CardHeader className="items-center pb-0 text-green">
                         <CardTitle className="text-xl">
                             <b>Expenses</b>
