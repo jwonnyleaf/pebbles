@@ -4,6 +4,7 @@ import {
   register,
   verifySession,
   logout,
+  getUserBalance,
 } from '../controllers/AuthController';
 import {
   createTransaction,
@@ -21,6 +22,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.get('/verify-session', verifySession);
 router.post('/logout', logout);
+router.get('/balance/:userID', getUserBalance);
 router.post('/transact', createTransaction);
 router.get('/transact/:userID', getTransactions);
 

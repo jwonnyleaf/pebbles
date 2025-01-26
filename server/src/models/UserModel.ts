@@ -6,6 +6,7 @@ interface User {
   email: string;
   password: string;
   avatar: string;
+  balance: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ const userSchema = new mongoose.Schema<User>({
   },
   password: { type: String, required: [true, 'Your password is required'] },
   avatar: { type: String, default: 'https://i.imgur.com/6VBx3io.png' },
+  balance: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date },
 });
