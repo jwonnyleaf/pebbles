@@ -8,31 +8,29 @@ import {
 
 const NotFound = () => {
   return (
-    <div className="not-found">
-      <div style={{ backgroundColor: '#4B7A6C' }}>
-        <div className="p-3"></div>
-        <div className="grid grid-cols-12 gap-2">
-          <div>
-            i will figure out how to extend the green to teh sides
-            eventually....
-          </div>
-          <div className="col-span-6 ...">
-            <Card style={{ backgroundColor: '#ECE3D3' }}>
-              <div className="p-3"></div>
+    <div className="grid min-h-svh bg-green text-lightgreen">
+        <div className="grid grid-cols-12 place-content-center gap-10 ...">
+          <div></div>
+          <div className="col-span-6 ... text-black">
+            <Card className = "bg-creme text-purple font-knewave flex flex-col items-center justify-center">
+              <div className="p-2"></div>
               <CardHeader>
-                <CardTitle>MISSING !</CardTitle>
-                <CardDescription>cat picture </CardDescription>
+                <CardTitle className = "text-lg"><b>MISSING !</b></CardTitle>
               </CardHeader>
+              <div className="p-2"> img place holder</div>
+              <CardDescription>
+                <p>cat not found.</p>
+              </CardDescription>
               <CardContent>
-                <h1>404.</h1>
-                <p>cat not found</p>
+                <h1><b>404.</b></h1>
               </CardContent>
             </Card>
           </div>
-          <div className="col-span-5 ...">
-            OH NO !<p>It looks like your cat got lost.</p>
+          <div className="col-span-5 ... place-content-center">
+            <p><b>Oh No!</b></p>
+            <p><b>It looks like your cat got lost.</b></p>
+            <p><b>Guess you got to move some pebbles to find them...</b></p>
           </div>
-        </div>
       </div>
     </div>
   );

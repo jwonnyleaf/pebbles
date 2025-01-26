@@ -17,6 +17,26 @@ module.exports = {
           DEFAULT: '#d7d5d5',
           foreground: '#d0d0d0',
         },
+        pink: {
+          DEFAULT: '#FFD9D5',
+          foreground: '#d0d0d0',
+        },
+        salmon: {
+          DEFAULT: '#E78176',
+          foreground: '#d0d0d0',
+        },
+        lightgreen: {
+          DEFAULT: '#CBDED9',
+          foreground: '#d0d0d0',
+        },
+        purple:{
+          DEFAULT: '#4A3143',
+          foreground: '#d0d0d0'
+        },
+        creme:{
+          DEFAULT: '#ECE3D3',
+          foreground: '#d0d0d0'
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
@@ -57,6 +77,11 @@ module.exports = {
           4: 'hsl(var(--chart-4))',
           5: 'hsl(var(--chart-5))',
         },
+      },
+      fontFamily:{
+        lexand: ['Lexend Deca', 'sans-serif'],
+        knewave: ['Knewave', 'cursive'],
+        inria:['Inria Sans', 'sans-serif'],
       },
     },
   },
