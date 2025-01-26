@@ -9,15 +9,15 @@ import {
 } from '@/components/ui/chart';
 
 const pieData = [
-  { budget: 'groceries', pebbles: 500, fill: 'purple' },
-  { budget: 'rent', pebbles: 600, fill: 'pink' },
-  { budget: 'utilities', pebbles: 300, fill: 'silver' },
-  { budget: 'fun', pebbles: 100, fill: 'salmon' },
+  { budget: 'groceries', pebbles: 500, fill: '#f7b2b7' },
+  { budget: 'rent', pebbles: 600, fill: '#f7717d' },
+  { budget: 'utilities', pebbles: 300, fill: '#de639a' },
+  { budget: 'fun', pebbles: 100, fill: '#5D255F' },
 ];
 
 const incomeData = [
-  { total: 'beg', pebbles: 300, fill: 'purple' },
-  { total: 'crime', pebbles: 100, fill: 'salmon' },
+  { total: 'beg', pebbles: 300, fill: '#5D255F' },
+  { total: 'crime', pebbles: 100, fill: '#f7717d' },
 ];
 
 const chartConfig: ChartConfig = {
