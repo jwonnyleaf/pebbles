@@ -11,6 +11,17 @@ import {
   createTransaction,
   getTransactions,
 } from '../controllers/TransactionController';
+import {
+  getAllItems,
+  getItemDetails,
+  createItem,
+  updateItem,
+  deleteItem,
+  buyItem,
+} from '../controllers/ItemController';
+
+import { validateRequest } from '../middleware/validateRequest';
+import { itemSchema } from '../validations/itemValidation';
 
 const router = express.Router();
 
@@ -27,5 +38,26 @@ router.get('/balance/:userID', getUserBalance);
 router.patch('/user/:userID/balance', updateUserBalance);
 router.post('/transact', createTransaction);
 router.get('/transact/:userID', getTransactions);
+
+/* Item Routes */
+router.get('/items', getAllItems);
+router.get(
+  '/items/:itemID',
+  validateRequest(itemSchema, 'params'),
+  getItemDetails
+);
+router.post('/items', validateRequest(itemSchema, 'body'), createItem);
+router.post('/items/:itemID/buy', buyItem);
+router.put(
+  '/items/:itemID',
+  validateRequest(itemSchema, 'params'),
+  validateRequest(itemSchema, 'body'),
+  updateItem
+);
+router.delete(
+  '/items/:itemID',
+  validateRequest(itemSchema, 'params'),
+  deleteItem
+);
 
 export default router;

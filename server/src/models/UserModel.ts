@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-interface User {
+export interface User extends Document {
   name: string;
   email: string;
   password: string;
   avatar: string;
   balance: number;
+  petName: string;
   createdAt: Date;
   updatedAt: Date;
 }

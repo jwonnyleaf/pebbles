@@ -33,6 +33,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const verifySession = async () => {
+      if (isAuthenticated) {
+        console.log('Already authenticated');
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await fetch(
           `${import.meta.env.VITE_API_URL}/api/verify-session`,
@@ -40,16 +46,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             credentials: 'include',
           }
         );
+
         if (response.ok) {
           const data = await response.json();
-          if (data.isAuthenticated) {
-            const dataUser = {
-              id: data.user._id,
-              ...data.user,
-            };
-            setUser(dataUser);
-            setIsAuthenticated(true);
-          }
+          const dataUser = {
+            id: data.user._id,
+            ...data.user,
+          };
+          setUser(dataUser);
+          setIsAuthenticated(true);
         }
       } catch (error) {
         console.error('Failed to verify session:', error);
@@ -82,8 +87,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           ...data.user,
         };
         setUser(dataUser);
+        console.log(dataUser, user);
         setIsAuthenticated(true);
-        console.log(data);
         return true;
       } else {
         showAlert('Failed to Log In', 'Try Again!', true);

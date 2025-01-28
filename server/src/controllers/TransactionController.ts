@@ -13,7 +13,7 @@ export const createTransaction = async (req: Request, res: Response) => {
     }
 
     const transaction = await TransactionModel.create({
-      user: user._id,
+      user: user.id,
       name,
       amount,
       type,
@@ -34,7 +34,7 @@ export const getTransactions = async (req: Request, res: Response) => {
       return;
     }
 
-    const transactions = await TransactionModel.find({ user: user._id });
+    const transactions = await TransactionModel.find({ user: user.id });
     res.status(200).send(transactions);
   } catch (error: any) {
     res.status(500).send({ message: error.message });

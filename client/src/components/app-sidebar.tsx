@@ -68,12 +68,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/dashboard">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                <div className="flex aspect-square size-10 items-center justify-center rounded-lg text-sidebar-primary-foreground">
                   <img src={Logo} alt="Pebbles." />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
+                <div className="grid flex-1 text-left text-xl leading-tight">
                   <span className="truncate font-semibold">Pebbles.</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate text-sm">Enterprise</span>
                 </div>
               </a>
             </SidebarMenuButton>

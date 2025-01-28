@@ -1,4 +1,3 @@
-import ShopPopUp from '@/components/ui/shoppopup';
 import { CarSvg } from '@/components/ui/carSvg';
 import DecorCarSvg from '@/components/ui/decorCarSvg';
 import { CatBow } from '@/components/ui/catBow';
@@ -7,48 +6,8 @@ import { useState } from 'react';
 
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { user } = useAuth();
   const [hasBow, setHasBow] = useState(false); // Track if bow is purchased
   const [canEquipBow, setCanEquipBow] = useState(false); // Track if bow can be equipped
-
-  const bowPrice = 200;
-
-  // Handle buying the bow
-  const handleBuyBow = async () => {
-    console.log('Buying bow');
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/balance/${user!.id}`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch balance');
-      }
-      const data = await response.json();
-      if (data.balance >= bowPrice) {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/user/${user!.id}/balance`,
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ delta: -bowPrice }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error('Failed to update balance');
-        }
-
-        setCanEquipBow(true);
-        setIsModalOpen(false);
-
-        console.log('Bow purchased successfully');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleEquipBow = () => {
     if (canEquipBow && !hasBow) {
@@ -94,7 +53,7 @@ const Inventory = () => {
             </button>
           ) : (
             <button
-              onClick={() => handleEquipBow()} // Remove the bow
+              onClick={() => handleEquipBow()}
               className="bg-white border-2 border-green h-1/8 rounded-[10px] hover:scale-105"
             >
               Remove Decorations
@@ -112,11 +71,6 @@ const Inventory = () => {
           >
             🛒 Shop
           </button>
-          <ShopPopUp
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onBuyBow={handleBuyBow}
-          />
         </div>
       </div>
     </div>
