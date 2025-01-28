@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "prestart": "npx migrate up",
     "start": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate:create": "npx migrate create",
+    "migrate:up": "npx migrate up",
+    "migrate:down": "npx migrate down",
+    "migrate:list": "npx migrate list"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.5",
     "socket.io": "^4.8.1",
+    "ts-migrate-mongoose": "^3.8.9",
     "zod": "^3.24.1"
   },
   "devDependencies": {

@@ -8,6 +8,13 @@ export interface User extends Document {
   avatar: string;
   balance: number;
   petName: string;
+  equippedItems: {
+    itemID: mongoose.Schema.Types.ObjectId;
+  }[];
+  inventory: {
+    itemID: mongoose.Schema.Types.ObjectId;
+    obtainedAt: Date;
+  }[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -22,6 +29,18 @@ const userSchema = new mongoose.Schema<User>({
   password: { type: String, required: [true, 'Your password is required'] },
   avatar: { type: String, default: 'https://i.imgur.com/6VBx3io.png' },
   balance: { type: Number, default: 0 },
+  petName: { type: String, default: 'Pebbles' },
+  equippedItems: [
+    {
+      itemID: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },
+    },
+  ],
+  inventory: [
+    {
+      itemID: { type: mongoose.Schema.Types.ObjectId, ref: 'Item' },
+      obtainedAt: { type: Date, default: Date.now },
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date },
 });
