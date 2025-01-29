@@ -80,9 +80,9 @@ export const buyItem = async (req: Request, res: Response) => {
     await user.save();
     emitBalanceUpdate(userID, user.balance);
     res.status(200).json({
-      message: 'Item purchased successfully',
-      newBalance: user.balance,
-      inventory: user.inventory,
+      message: 'Item Purchased Successfully',
+      updatedBalance: user.balance,
+      updatedInventory: user.inventory,
     });
   } catch (error) {
     const err = error as Error;

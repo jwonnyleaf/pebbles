@@ -60,8 +60,8 @@ const ShopPopUp: React.FC<ShopModalProps> = ({
   inventory,
 }) => {
   const [shopItems, setShopItems] = useState<ShopItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
 
+  // Fetch Shop Items
   useEffect(() => {
     if (!isOpen) return;
     const fetchItems = async () => {
@@ -73,8 +73,6 @@ const ShopPopUp: React.FC<ShopModalProps> = ({
         setShopItems(data);
       } catch (error) {
         console.error('Failed to fetch shop items:', error);
-      } finally {
-        setLoading(false);
       }
     };
 

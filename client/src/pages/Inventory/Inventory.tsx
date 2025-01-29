@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 const Inventory = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasBow, setHasBow] = useState(false); // Track if bow is purchased
-  const [canEquipBow, setCanEquipBow] = useState(false); // Track if bow can be equipped
+  const [hasBow, setHasBow] = useState(false);
+  const [canEquipBow, setCanEquipBow] = useState(false);
 
   const handleEquipBow = () => {
     if (canEquipBow && !hasBow) {
@@ -25,7 +25,6 @@ const Inventory = () => {
       <div className="w-3/5 max-h-[575px] h-[575px] bg-white rounded-3xl shadow-lg p-5 flex flex-col">
         <div className="flex justify-between items-center">
           <p className="text-dark-green text-lg font-bold">Pebbles</p>
-          <div className="bg-white p-2 rounded-full mb-3">$ _____</div>
         </div>
         <div className="w-full h-[400px] bg-green rounded-3xl flex justify-center items-center">
           {hasBow ? (

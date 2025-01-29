@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ShopPopUp from './ShopPopUp';
 import { useAuth } from '@/context/AuthContext';
 
 const Shop: React.FC = () => {
   const { user } = useAuth();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState<boolean>(true);
+  const [inventory, setInventory] = useState<string[]>([]);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  useEffect(() => {
+    if (user?.inventory) {
+      setInventory(user.inventory.map((item) => item.itemID));
+    }
+  }, [user?.inventory]);
 
   const handleBuy = async (itemID: string) => {
     try {
@@ -22,36 +26,21 @@ const Shop: React.FC = () => {
         }
       );
       if (!response.ok) {
-        throw new Error('Failed to update balance');
+        throw new Error('Failed to Purchase Item');
       }
-
-      closeModal();
-      console.log('Item purchased successfully');
+      setInventory((prev) => [...prev, itemID]);
     } catch (error) {
-      console.error('Failed to buy item:', error);
+      console.error('Failed to Purchase Item:', error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold text-[#46655C] mb-10">
-        Welcome to the Shop
-      </h1>
-
-      <button
-        onClick={openModal}
-        className="px-6 py-3 bg-[#46655C] text-white rounded-xl text-lg hover:bg-[#365047] transition"
-      >
-        Open Shop
-      </button>
-
-      <ShopPopUp
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onBuy={(itemID) => handleBuy(itemID)}
-        inventory={user!.inventory.map((item) => item.itemID)}
-      />
-    </div>
+    <ShopPopUp
+      isOpen={isShopOpen}
+      onClose={() => setIsShopOpen(false)}
+      onBuy={(itemID) => handleBuy(itemID)}
+      inventory={inventory}
+    />
   );
 };
 
