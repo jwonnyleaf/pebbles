@@ -119,3 +119,17 @@ export const updateUserBalance = async (req: Request, res: Response) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+export const getUserInventory = async (req: Request, res: Response) => {
+  try {
+    const { userID } = req.params;
+    const user = await UserModel.findById(userID).populate('inventory.itemID');
+    if (!user) {
+      res.status(404).send({ message: 'User not found' });
+      return;
+    }
+    res.status(200).send({ inventory: user.inventory });
+  } catch (error: any) {
+    res.status(500).send({ message: error.message });
+  }
+};

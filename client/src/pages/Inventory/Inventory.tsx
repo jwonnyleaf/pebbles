@@ -1,23 +1,79 @@
 import { CarSvg } from '@/components/ui/carSvg';
 import DecorCarSvg from '@/components/ui/decorCarSvg';
 import { CatBow } from '@/components/ui/catBow';
+import { useEffect, useState } from 'react';
+import ShopPopUp from '../Shop/ShopPopUp';
 import { useAuth } from '@/context/AuthContext';
-import { useState } from 'react';
 
 const Inventory = () => {
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasBow, setHasBow] = useState(false);
   const [canEquipBow, setCanEquipBow] = useState(false);
+  const bowtieID = '6796c0958389bb04b5690ad0'; // Define bowtie ID
 
-  const handleEquipBow = () => {
-    if (canEquipBow && !hasBow) {
-      console.log('Equipping bow');
-      setHasBow(true);
-    } else if (hasBow) {
-      console.log('Removing bow');
-      setHasBow(false);
+  /**
+   * Fetch user's inventory and update `canEquipBow`
+   */
+  const fetchInventory = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/${user!.id}/inventory`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to Retrieve Inventory');
+      }
+
+      const data = await response.json();
+      const inventory = data.inventory.map(
+        (item: { itemID: { _id: string } }) => item.itemID._id
+      );
+      setCanEquipBow(inventory.includes(bowtieID));
+
+      console.log(
+        'Inventory:',
+        inventory,
+        'Can Equip Bow:',
+        inventory.includes(bowtieID)
+      );
+    } catch (error) {
+      console.error('Failed to Retrieve Inventory:', error);
     }
   };
+
+  /**
+   * Handle equipping and removing the bow
+   */
+  const handleEquipBow = () => {
+    if (!canEquipBow) {
+      console.log("You don't own the bow!");
+      return;
+    }
+    setHasBow((prev) => !prev);
+  };
+
+  /**
+   * Fetch inventory when component mounts
+   */
+  useEffect(() => {
+    fetchInventory();
+  }, []);
+
+  /**
+   * Fetch inventory when shop is opened (in case user buys the bow)
+   */
+  useEffect(() => {
+    if (isModalOpen) {
+      fetchInventory();
+    }
+  }, [isModalOpen]);
 
   return (
     <div className="h-full min-w-full bg-lightgreen flex items-center justify-center gap-7">
@@ -71,6 +127,13 @@ const Inventory = () => {
             🛒 Shop
           </button>
         </div>
+
+        <ShopPopUp
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onBuy={handleEquipBow}
+          inventory={[]} // Pass inventory to disable already owned items
+        />
       </div>
     </div>
   );

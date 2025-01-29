@@ -6,6 +6,7 @@ import {
   logout,
   getUserBalance,
   updateUserBalance,
+  getUserInventory,
 } from '../controllers/AuthController';
 import {
   createTransaction,
@@ -34,10 +35,13 @@ router.post('/register', register);
 router.post('/login', login);
 router.get('/verify-session', verifySession);
 router.post('/logout', logout);
-router.get('/balance/:userID', getUserBalance);
-router.patch('/user/:userID/balance', updateUserBalance);
 router.post('/transact', createTransaction);
 router.get('/transact/:userID', getTransactions);
+
+/* User Routes */
+router.get('/balance/:userID', getUserBalance);
+router.patch('/user/:userID/balance', updateUserBalance);
+router.get('/user/:userID/inventory', getUserInventory);
 
 /* Item Routes */
 router.get('/items', getAllItems);

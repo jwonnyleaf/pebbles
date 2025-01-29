@@ -81,47 +81,74 @@ const ShopPopUp: React.FC<ShopModalProps> = ({
 
   if (!isOpen) return null;
 
+  const totalSlots = 64;
+  const itemSlots = [
+    ...shopItems,
+    ...Array(totalSlots - shopItems.length).fill(null),
+  ];
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-10 rounded-3xl w-4/5 max-w-4xl h-4/5 shadow-lg relative overflow-hidden">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+      <div className="bg-pink-100 border-4 border-pink-300 p-6 w-4/5 max-w-[80%] h-4/5 shadow-lg relative rounded-3xl flex flex-col">
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-600 hover:text-black text-4xl"
         >
           ✕
         </button>
-        <h2 className="text-4xl font-bold border-b border-[#46655C] pb-5 text-[#46655C]">
-          SHOP
-        </h2>
-        <div className="flex mt-8">
-          <div className="border-2 border-[#46655C] rounded-xl flex flex-col gap-6 p-3 mr-10">
-            <SidebarButton emoji="💡" onClick={() => console.log('Light')} />
-            <SidebarButton emoji="🍔" onClick={() => console.log('Food')} />
-            <SidebarButton emoji="🎁" onClick={() => console.log('Gifts')} />
-          </div>
-          <div className="grid grid-cols-4 gap-5 w-full">
-            {shopItems.map((item) => {
-              const isOwned = inventory.includes(item._id);
 
-              return (
-                <ShopItem
-                  key={item._id}
-                  onClick={() => onBuy(item._id)}
-                  disabled={isOwned}
-                >
-                  {item.image ? (
+        {/* Shop Items */}
+        <div className="grid grid-cols-8 gap-4 w-full flex-grow min-h-0 overflow-y-auto p-4">
+          {itemSlots.map((item, index) => {
+            const isOwned = item && inventory.includes(item._id);
+            return (
+              <div
+                key={item ? item._id : `empty-${index}`}
+                className={`w-36 h-48 flex flex-col items-center justify-center rounded-2xl shadow-md p-3 transition-all ${
+                  item
+                    ? isOwned
+                      ? 'bg-gray-300 cursor-not-allowed opacity-50'
+                      : 'bg-white hover:scale-105 hover:shadow-xl cursor-pointer'
+                    : 'bg-white opacity-70'
+                }`}
+                onClick={item && !isOwned ? () => onBuy(item._id) : undefined}
+              >
+                {/* Item Image or Placeholder */}
+                <div className="w-24 h-24 flex items-center justify-center rounded-xl bg-white border border-gray-300 shadow-sm">
+                  {item ? (
                     <img
                       src={`${import.meta.env.VITE_API_URL}/${item.image}`}
                       alt={item.name}
-                      className="w-24 h-24 object-contain"
+                      className="w-full h-full object-contain rounded-md"
                     />
                   ) : (
-                    <div className="w-12 h-12 bg-gray-300 rounded-md"></div>
+                    <span className="text-gray-400 text-2xl">❔</span>
                   )}
-                </ShopItem>
-              );
-            })}
-          </div>
+                </div>
+
+                {/* Item Info */}
+                {item ? (
+                  <div className="mt-2 text-center">
+                    <p className="font-bold text-md text-gray-800">
+                      {item.name}
+                    </p>
+                    <p className="text-xs text-gray-500">{item.description}</p>
+                    <p className="text-sm font-semibold text-pink-500 mt-1">
+                      ${item.price}
+                    </p>
+                    {isOwned && (
+                      <p className="text-xs text-green-500 font-semibold mt-1">
+                        ✅ Owned
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-gray-400 text-sm mt-2">Coming Soon...</p>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
