@@ -7,11 +7,6 @@ interface ShopModalProps {
   inventory: string[];
 }
 
-interface SidebarButtonProps {
-  emoji: string;
-  onClick: () => void;
-}
-
 interface ShopItemProps {
   onClick: () => void;
   disabled?: boolean;
@@ -25,15 +20,6 @@ interface ShopItem {
   description: string;
   image: string;
 }
-
-const SidebarButton: React.FC<SidebarButtonProps> = ({ emoji, onClick }) => (
-  <button
-    onClick={onClick}
-    className="h-20 w-20 p-3 bg-white text-3xl rounded-xl hover:scale-105 transition-transform"
-  >
-    {emoji}
-  </button>
-);
 
 const ShopItem: React.FC<ShopItemProps> = ({
   onClick,
