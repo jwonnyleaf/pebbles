@@ -1,8 +1,6 @@
-import { GalleryVerticalEnd } from 'lucide-react';
-
 import { LoginForm } from '@/components/login-form';
-
 import templogin from '@/assets/pebbles.jpg';
+import Logo from '@/assets/logo.svg';
 
 export default function Login() {
   return (
@@ -11,7 +9,7 @@ export default function Login() {
         <div className="flex justify-center gap-3 md:justify-start">
           <a href="/" className="flex items-center gap-6 text-xl font-medium">
             <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <GalleryVerticalEnd className="size-16" />
+              <img src={Logo} alt="Pebbles." />
             </div>
             Pebbles.
           </a>
@@ -27,7 +25,7 @@ export default function Login() {
         <img
           src={templogin}
           alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.3] dark:grayscale"
         />
       </div>
     </div>

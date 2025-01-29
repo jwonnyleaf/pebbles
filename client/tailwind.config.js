@@ -13,6 +13,8 @@ module.exports = {
         green: {
           DEFAULT: '#2e4b43',
           dark: '#1c2e29',
+          light: '#79b6a6',
+          foreground: '#447063',
         },
         silver: {
           DEFAULT: '#d7d5d5',

@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -20,37 +19,35 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PebblesSVG from '@/assets/pebbles.svg';
+import socket from '@/utils/socket';
 import { useEffect, useState } from 'react';
 
 export function NavUser() {
-  const [balance, setBalance] = useState<number>(0);
   const { isMobile } = useSidebar();
   const { user, logout } = useAuth();
+  const [balance, setBalance] = useState<number>(user!.balance);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      socket.connect();
+      socket.emit('join', user.id);
+      socket.on('balance-update', (balance: number) => {
+        console.log('Balance updated:', balance);
+        setBalance(balance);
+      });
+
+      return () => {
+        socket.disconnect();
+        socket.off('balance-update');
+      };
+    }
+  }, [user]);
 
   const handleLogout = async () => {
     await logout();
     navigate('/login');
   };
-
-  const fetchBalance = async () => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/balance/${user!.id}`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch balance');
-      }
-      const data = await response.json();
-      setBalance(data.balance);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBalance();
-  }, []);
 
   return (
     <SidebarMenu>
@@ -59,15 +56,22 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="bg-green-dark data-[state=open]:bg-green-dark data-[state=open]:text-sidebar-accent-foreground"
+              className="bg-green-dark rounded-3xl data-[state=open]:bg-green-dark data-[state=open]:text-sidebar-accent-foreground px-2 py-8 gap-4"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
+              <Avatar className="h-10 w-10 rounded-3xl">
                 <AvatarImage src={user!.avatar} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
+              <div className="grid flex-1 text-left text-sm leading-tight gap-1">
                 <span className="truncate font-semibold">{user!.name}</span>
-                <span className="truncate text-xs">{user!.email}</span>
+                <span className="truncate text-sm flex gap-2 items-center">
+                  <img
+                    src={PebblesSVG}
+                    alt="Pebbles."
+                    className="w-4 h-4 invert"
+                  />
+                  {balance}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -90,15 +94,6 @@ export function NavUser() {
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup></DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <img src={PebblesSVG} alt="Pebbles." className="w-4 h-4" />
-                {balance}
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />

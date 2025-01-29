@@ -1,64 +1,79 @@
-import ShopPopUp from '@/components/ui/shoppopup';
 import { CarSvg } from '@/components/ui/carSvg';
 import DecorCarSvg from '@/components/ui/decorCarSvg';
 import { CatBow } from '@/components/ui/catBow';
+import { useEffect, useState } from 'react';
+import ShopPopUp from '../Shop/ShopPopUp';
 import { useAuth } from '@/context/AuthContext';
-import { useState } from 'react';
 
 const Inventory = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuth();
-  const [hasBow, setHasBow] = useState(false); // Track if bow is purchased
-  const [canEquipBow, setCanEquipBow] = useState(false); // Track if bow can be equipped
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasBow, setHasBow] = useState(false);
+  const [canEquipBow, setCanEquipBow] = useState(false);
+  const bowtieID = '6796c0958389bb04b5690ad0'; // Define bowtie ID
 
-  const bowPrice = 200;
-
-  // Handle buying the bow
-  const handleBuyBow = async () => {
-    console.log('Buying bow');
+  /**
+   * Fetch user's inventory and update `canEquipBow`
+   */
+  const fetchInventory = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/balance/${user!.id}`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch balance');
-      }
-      const data = await response.json();
-      if (data.balance >= bowPrice) {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/user/${user!.id}/balance`,
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ delta: -bowPrice }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error('Failed to update balance');
+        `${import.meta.env.VITE_API_URL}/api/user/${user!.id}/inventory`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
+      );
 
-        setCanEquipBow(true);
-        setIsModalOpen(false);
-
-        console.log('Bow purchased successfully');
+      if (!response.ok) {
+        throw new Error('Failed to Retrieve Inventory');
       }
+
+      const data = await response.json();
+      const inventory = data.inventory.map(
+        (item: { itemID: { _id: string } }) => item.itemID._id
+      );
+      setCanEquipBow(inventory.includes(bowtieID));
+
+      console.log(
+        'Inventory:',
+        inventory,
+        'Can Equip Bow:',
+        inventory.includes(bowtieID)
+      );
     } catch (error) {
-      console.error(error);
+      console.error('Failed to Retrieve Inventory:', error);
     }
   };
 
+  /**
+   * Handle equipping and removing the bow
+   */
   const handleEquipBow = () => {
-    if (canEquipBow && !hasBow) {
-      console.log('Equipping bow');
-      setHasBow(true);
-    } else if (hasBow) {
-      console.log('Removing bow');
-      setHasBow(false);
+    if (!canEquipBow) {
+      console.log("You don't own the bow!");
+      return;
     }
+    setHasBow((prev) => !prev);
   };
+
+  /**
+   * Fetch inventory when component mounts
+   */
+  useEffect(() => {
+    fetchInventory();
+  }, []);
+
+  /**
+   * Fetch inventory when shop is opened (in case user buys the bow)
+   */
+  useEffect(() => {
+    if (isModalOpen) {
+      fetchInventory();
+    }
+  }, [isModalOpen]);
 
   return (
     <div className="h-full min-w-full bg-lightgreen flex items-center justify-center gap-7">
@@ -66,7 +81,6 @@ const Inventory = () => {
       <div className="w-3/5 max-h-[575px] h-[575px] bg-white rounded-3xl shadow-lg p-5 flex flex-col">
         <div className="flex justify-between items-center">
           <p className="text-dark-green text-lg font-bold">Pebbles</p>
-          <div className="bg-white p-2 rounded-full mb-3">$ _____</div>
         </div>
         <div className="w-full h-[400px] bg-green rounded-3xl flex justify-center items-center">
           {hasBow ? (
@@ -94,7 +108,7 @@ const Inventory = () => {
             </button>
           ) : (
             <button
-              onClick={() => handleEquipBow()} // Remove the bow
+              onClick={() => handleEquipBow()}
               className="bg-white border-2 border-green h-1/8 rounded-[10px] hover:scale-105"
             >
               Remove Decorations
@@ -112,12 +126,14 @@ const Inventory = () => {
           >
             🛒 Shop
           </button>
-          <ShopPopUp
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onBuyBow={handleBuyBow}
-          />
         </div>
+
+        <ShopPopUp
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onBuy={handleEquipBow}
+          inventory={[]} // Pass inventory to disable already owned items
+        />
       </div>
     </div>
   );
