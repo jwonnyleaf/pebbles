@@ -4,6 +4,7 @@ interface ShopModalProps {
   isOpen: boolean;
   onClose: () => void;
   onBuy: (itemID: string) => void;
+  inventory: string[];
 }
 
 interface SidebarButtonProps {
@@ -13,6 +14,7 @@ interface SidebarButtonProps {
 
 interface ShopItemProps {
   onClick: () => void;
+  disabled?: boolean;
   children: React.ReactNode;
 }
 
@@ -33,16 +35,30 @@ const SidebarButton: React.FC<SidebarButtonProps> = ({ emoji, onClick }) => (
   </button>
 );
 
-const ShopItem: React.FC<ShopItemProps> = ({ onClick, children }) => (
-  <div
+const ShopItem: React.FC<ShopItemProps> = ({
+  onClick,
+  disabled = false,
+  children,
+}) => (
+  <button
     onClick={onClick}
-    className="w-[150px] h-[150px] border-2 border-[#46655C] bg-white rounded-3xl hover:scale-105 flex items-center justify-center cursor-pointer transition-transform"
+    disabled={disabled}
+    className={`w-[150px] h-[150px] border-2 rounded-3xl flex items-center justify-center transition-transform ${
+      disabled
+        ? 'bg-gray-300 cursor-not-allowed opacity-50'
+        : 'bg-white hover:scale-105 cursor-pointer'
+    }`}
   >
     {children}
-  </div>
+  </button>
 );
 
-const ShopPopUp: React.FC<ShopModalProps> = ({ isOpen, onClose, onBuy }) => {
+const ShopPopUp: React.FC<ShopModalProps> = ({
+  isOpen,
+  onClose,
+  onBuy,
+  inventory,
+}) => {
   const [shopItems, setShopItems] = useState<ShopItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -86,19 +102,27 @@ const ShopPopUp: React.FC<ShopModalProps> = ({ isOpen, onClose, onBuy }) => {
             <SidebarButton emoji="🎁" onClick={() => console.log('Gifts')} />
           </div>
           <div className="grid grid-cols-4 gap-5 w-full">
-            {shopItems.map((item) => (
-              <ShopItem key={item._id} onClick={() => onBuy(item._id)}>
-                {item.image ? (
-                  <img
-                    src={`${import.meta.env.VITE_API_URL}/${item.image}`}
-                    alt={item.name}
-                    className="w-24 h-24 object-contain"
-                  />
-                ) : (
-                  <div className="w-12 h-12 bg-gray-300 rounded-md"></div>
-                )}
-              </ShopItem>
-            ))}
+            {shopItems.map((item) => {
+              const isOwned = inventory.includes(item._id);
+
+              return (
+                <ShopItem
+                  key={item._id}
+                  onClick={() => onBuy(item._id)}
+                  disabled={isOwned}
+                >
+                  {item.image ? (
+                    <img
+                      src={`${import.meta.env.VITE_API_URL}/${item.image}`}
+                      alt={item.name}
+                      className="w-24 h-24 object-contain"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-300 rounded-md"></div>
+                  )}
+                </ShopItem>
+              );
+            })}
           </div>
         </div>
       </div>

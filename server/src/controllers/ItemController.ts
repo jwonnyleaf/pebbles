@@ -58,6 +58,16 @@ export const buyItem = async (req: Request, res: Response) => {
       return;
     }
 
+    // Check if User already owns the item
+    const alreadyOwned = user.inventory.some(
+      (inventoryItem) => inventoryItem.itemID.toString() === itemID
+    );
+
+    if (alreadyOwned) {
+      res.status(400).json({ error: 'Item Already Owned' });
+      return;
+    }
+
     // Check User Balance
     if (user.balance < item.price) {
       res.status(400).json({ error: 'Insufficient Balance' });
@@ -66,9 +76,14 @@ export const buyItem = async (req: Request, res: Response) => {
 
     // Update User Balance
     user.balance -= item.price;
+    user.inventory.push({ itemID: item._id, obtainedAt: new Date() });
     await user.save();
     emitBalanceUpdate(userID, user.balance);
-    res.json({ message: 'Item Purchased Successfully' });
+    res.status(200).json({
+      message: 'Item purchased successfully',
+      newBalance: user.balance,
+      inventory: user.inventory,
+    });
   } catch (error) {
     const err = error as Error;
     res.status(500).json({ message: 'Failed to Purchase Item...' });

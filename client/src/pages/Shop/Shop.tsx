@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ShopPopUp from './ShopPopUp';
 import { useAuth } from '@/context/AuthContext';
 
@@ -25,7 +25,6 @@ const Shop: React.FC = () => {
         throw new Error('Failed to update balance');
       }
 
-      const data = await response.json();
       closeModal();
       console.log('Item purchased successfully');
     } catch (error) {
@@ -50,6 +49,7 @@ const Shop: React.FC = () => {
         isOpen={isModalOpen}
         onClose={closeModal}
         onBuy={(itemID) => handleBuy(itemID)}
+        inventory={user!.inventory.map((item) => item.itemID)}
       />
     </div>
   );

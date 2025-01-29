@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface User extends Document {
@@ -9,10 +9,10 @@ export interface User extends Document {
   balance: number;
   petName: string;
   equippedItems: {
-    itemID: mongoose.Schema.Types.ObjectId;
+    itemID: Types.ObjectId;
   }[];
   inventory: {
-    itemID: mongoose.Schema.Types.ObjectId;
+    itemID: Types.ObjectId;
     obtainedAt: Date;
   }[];
   createdAt: Date;
