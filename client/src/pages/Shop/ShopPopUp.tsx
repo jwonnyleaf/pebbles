@@ -89,11 +89,11 @@ const ShopPopUp: React.FC<ShopModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-      <div className="bg-pink-100 border-4 border-pink-300 p-6 w-4/5 max-w-[80%] h-4/5 shadow-lg relative rounded-3xl flex flex-col">
+      <div className="bg-white bg-opacity-75 border-4 border-green-light p-6 w-4/5 max-w-[80%] h-4/5 shadow-lg relative rounded-3xl flex flex-col">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-600 hover:text-black text-4xl"
+          className="absolute -top-6 -right-6 bg-red-500 text-white text-4xl rounded-full p-3 shadow-lg hover:bg-red-600 transition-all"
         >
           ✕
         </button>
@@ -109,13 +109,13 @@ const ShopPopUp: React.FC<ShopModalProps> = ({
                   item
                     ? isOwned
                       ? 'bg-gray-300 cursor-not-allowed opacity-50'
-                      : 'bg-white hover:scale-105 hover:shadow-xl cursor-pointer'
-                    : 'bg-white opacity-70'
+                      : 'bg-green hover:scale-105 hover:shadow-xl cursor-pointer'
+                    : 'bg-green-dark'
                 }`}
                 onClick={item && !isOwned ? () => onBuy(item._id) : undefined}
               >
                 {/* Item Image or Placeholder */}
-                <div className="w-24 h-24 flex items-center justify-center rounded-xl bg-white border border-gray-300 shadow-sm">
+                <div className="w-24 h-24 flex items-center justify-center rounded-xl bg-green border border-gray-300 shadow-sm">
                   {item ? (
                     <img
                       src={`${import.meta.env.VITE_API_URL}/${item.image}`}
@@ -130,11 +130,9 @@ const ShopPopUp: React.FC<ShopModalProps> = ({
                 {/* Item Info */}
                 {item ? (
                   <div className="mt-2 text-center">
-                    <p className="font-bold text-md text-gray-800">
-                      {item.name}
-                    </p>
+                    <p className="font-bold text-md text-white">{item.name}</p>
                     <p className="text-xs text-gray-500">{item.description}</p>
-                    <p className="text-sm font-semibold text-pink-500 mt-1">
+                    <p className="text-sm font-semibold text-lime-500 mt-1">
                       ${item.price}
                     </p>
                     {isOwned && (
